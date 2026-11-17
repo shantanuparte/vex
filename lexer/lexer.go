@@ -41,25 +41,34 @@ func (l *Lexer) NextToken() token.Token {
 	switch l.ch {
 	case '=':
 		tok = newToken(token.ASSIGN, l.ch)
-
 	case '+':
 		tok = newToken(token.PLUS, l.ch)
-
 	case '(':
 		tok = newToken(token.LBRACE, l.ch)
-
 	case ')':
 		tok = newToken(token.RBRACE, l.ch)
-
 	case '{':
 		tok = newToken(token.LCURLBRACE, l.ch)
 	case '}':
 		tok = newToken(token.RCURLBRACE, l.ch)
 	case ',':
-		tok = newToken(token.SEMICOLON, l.ch)
+		tok = newToken(token.COMMA, l.ch)
 	case ';':
 		tok = newToken(token.SEMICOLON, l.ch)
 
+	case 0:
+		tok.Litral = ""
+		tok.Type = token.EOFILE
+
+	default:
+		if isLetter(l.ch) {
+			//need to serprate type n litral->(variable name)
+			tok.Litral = l.readIndentifier()
+			// tok.Type = idk
+
+		} else {
+			tok = newToken(token.ILLEGAL, l.ch)
+		}
 	}
 
 	l.readChar()
@@ -72,4 +81,21 @@ func newToken(tokType token.TokenType, ch byte) token.Token {
 
 }
 
+func isLetter(ch byte) bool {
+	//user rune->int32 as they are unicode n we can direcly compare then with byte->uint8
+	return ch >= 'a' || ch <= 'z' || ch >= 'A' || ch <= 'Z' || ch == '_'
+}
 
+func (l *Lexer) readIndentifier() string {
+
+	//I guess curr is used cause in return slice omit first ittration.
+
+	prevPos := l.curr
+
+	for isLetter(l.ch) {
+		l.readChar()
+	}
+
+	return l.input[prevPos:l.curr]
+
+}

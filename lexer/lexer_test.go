@@ -2,13 +2,19 @@ package lexer
 
 import (
 	"testing"
-	
+
 	"github.com/shantanuparte/vex/token"
 )
 
 func TestNextToken(t *testing.T) {
 
-	test_str := `=+(){},;` // `` for raw strig litrals->without \n\t stuff
+	test_str := `val x = 64;
+	val y = 10;
+	val sum = fn(x , y){
+		return x + y;
+	}
+	val result = sum(x,y);
+	` // `` for raw strig litrals->without \n\t stuff
 
 	//slice of structs
 	tests := []struct {

@@ -1,6 +1,6 @@
 package token
 
-type TokenType string //skipped for now
+type TokenType string
 
 type Token struct{
 	Type TokenType

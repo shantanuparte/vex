@@ -2,7 +2,7 @@ package lexer
 
 import (
 	"testing"
-
+	
 	"github.com/shantanuparte/vex/token"
 )
 
@@ -41,7 +41,7 @@ func TestNextToken(t *testing.T) {
 
 		if tok.Litral != tt.extectedLitral {
 			t.Fatalf("tests[%d] - literal wrong. expected=%q, got=%q",
-				i, tt.extectedLitral, tok.Literal)
+				i, tt.extectedLitral, tok.Litral)
 		}
 
 	}

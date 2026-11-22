@@ -1,9 +1,0 @@
-val x = 39;
-val y = 9;
-
-
-val sum = fn(x,y){
-    return x + y;
-}
-
-

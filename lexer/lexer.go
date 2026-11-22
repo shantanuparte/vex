@@ -36,7 +36,7 @@ func (l *Lexer) readChar() {
 }
 
 func (l *Lexer) skipComments() {
-	if l.ch != '\n' && l.ch != 0 {
+	for l.ch != '\n' && l.ch != 0 {
 		l.readChar()
 	}
 }

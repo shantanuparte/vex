@@ -39,7 +39,7 @@ func TestNextToken(t *testing.T) {
 		{token.FUNCTION, "fn"},
 		{token.LBRACE, "("},
 		{token.IDENTIFIER, "x"},
-		{token.SEMICOLON, ","},
+		{token.COMMA, ","},
 		{token.IDENTIFIER, "y"},
 		{token.RBRACE, ")"},
 		{token.LCURLBRACE, "{"},
@@ -54,9 +54,11 @@ func TestNextToken(t *testing.T) {
 		{token.IDENTIFIER, "sum"},
 		{token.LBRACE, "("},
 		{token.IDENTIFIER, "x"},
-		{token.PLUS, "+"},
+		{token.COMMA, ","},
 		{token.IDENTIFIER, "y"},
 		{token.RBRACE, ")"},
+		{token.SEMICOLON, ";"},
+		{token.EOFILE, ""},
 	}
 
 	l := New(test_str) //create a new lexser

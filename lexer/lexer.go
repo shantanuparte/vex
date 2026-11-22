@@ -64,8 +64,8 @@ func (l *Lexer) NextToken() token.Token {
 		if isLetter(l.ch) {
 			//need to serprate type n litral->(variable name)
 			tok.Litral = l.readIndentifier()
-			// tok.Type = idk
-
+			tok.Type = token.LookIdentfiers(tok.Litral)
+			return tok
 		} else {
 			tok = newToken(token.ILLEGAL, l.ch)
 		}
@@ -83,7 +83,7 @@ func newToken(tokType token.TokenType, ch byte) token.Token {
 
 func isLetter(ch byte) bool {
 	//user rune->int32 as they are unicode n we can direcly compare then with byte->uint8
-	return ch >= 'a' || ch <= 'z' || ch >= 'A' || ch <= 'Z' || ch == '_'
+	return ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z' || ch == '_'
 }
 
 func (l *Lexer) readIndentifier() string {

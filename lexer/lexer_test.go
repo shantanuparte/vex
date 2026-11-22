@@ -11,7 +11,7 @@ func TestNextToken(t *testing.T) {
 	test_str := `val x = 64;
 	val y = 10;
 	val sum = fn(x , y){
-		return x + y;
+		x + y;
 	}
 	val result = sum(x,y);
 	` // `` for raw strig litrals->without \n\t stuff
@@ -23,15 +23,40 @@ func TestNextToken(t *testing.T) {
 	}{
 
 		//arange in order of input lol
+		{token.VAL, "val"},
+		{token.IDENTIFIER, "x"},
 		{token.ASSIGN, "="},
-		{token.PLUS, "+"},
+		{token.INT, "64"},
+		{token.SEMICOLON, ";"},
+		{token.VAL, "val"},
+		{token.IDENTIFIER, "y"},
+		{token.ASSIGN, "="},
+		{token.INT, "10"},
+		{token.SEMICOLON, ";"},
+		{token.VAL, "val"},
+		{token.IDENTIFIER, "sum"},
+		{token.ASSIGN, "="},
+		{token.FUNCTION, "fn"},
 		{token.LBRACE, "("},
+		{token.IDENTIFIER, "x"},
+		{token.SEMICOLON, ","},
+		{token.IDENTIFIER, "y"},
 		{token.RBRACE, ")"},
 		{token.LCURLBRACE, "{"},
-		{token.RCURLBRACE, "}"},
-		{token.COMMA, ","},
+		{token.IDENTIFIER, "x"},
+		{token.PLUS, "+"},
+		{token.IDENTIFIER, "y"},
 		{token.SEMICOLON, ";"},
-		{token.EOFILE, ""},
+		{token.RCURLBRACE, "}"},
+		{token.VAL, "val"},
+		{token.IDENTIFIER, "result"},
+		{token.ASSIGN, "="},
+		{token.IDENTIFIER, "sum"},
+		{token.LBRACE, "("},
+		{token.IDENTIFIER, "x"},
+		{token.PLUS, "+"},
+		{token.IDENTIFIER, "y"},
+		{token.RBRACE, ")"},
 	}
 
 	l := New(test_str) //create a new lexser

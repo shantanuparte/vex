@@ -21,6 +21,7 @@ const (
 	ASSIGN = "="
 	PLUS   = "+"
 	MINUS  = "-"
+	
 
 	//signs
 	COMMA     = ","
@@ -44,7 +45,7 @@ var keyword = map[string]TokenType{
 func LookIdentfiers(s string) TokenType {
 	if tok, ok := keyword[s]; ok {
 		return tok //if it's inbuild
-	}else{
+	} else {
 		return IDENTIFIER //actuall var
 	}
 }

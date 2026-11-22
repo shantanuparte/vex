@@ -20,6 +20,23 @@ if (total > 25) {
 }
 ```
 
+## Feature
+
+- Just a basic lexer
+- prints the tokens only lol
+
+## Why i made this
+
+I'm gonna be really honest. idk really. I just found out this video on yt about yapping on crafting Interpreters
+and like started working n found it intresting
+
+## How i made this
+
+- There is token datatype with Type and Litera of string types
+- A NextToken funcitons takes the input as string and ittrates thouthit it
+- while ittraint it convertes stuff into valid tokens
+- Some also check for keywords and stuff
+
 ## Run it
 
 It's still incomplete(it's new and faily big for me) with first version of the lexer only and repl
@@ -57,4 +74,5 @@ go test ./lexer
 ```
 
 I'm currently learnig and Will continue this project for further weeks
+Next goal is parser. I'll first learn and then I'll add my OWN syntax as currecntly idk anything about parsers.
 Thank you :)

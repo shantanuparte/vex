@@ -10,6 +10,7 @@ type Lexer struct {
 	readPos int  //next to currect position
 	ch      byte //current char in examination
 }
+
 // creates new lexer
 func New(input string) *Lexer {
 	l := Lexer{input: input}
@@ -38,8 +39,6 @@ func (l *Lexer) NextToken() token.Token {
 	var tok token.Token
 	l.skipWhitespace()
 	switch l.ch {
-	case '=':
-		tok = newToken(token.ASSIGN, l.ch)
 	case '+':
 		tok = newToken(token.PLUS, l.ch)
 	case '(':
@@ -54,7 +53,22 @@ func (l *Lexer) NextToken() token.Token {
 		tok = newToken(token.COMMA, l.ch)
 	case ';':
 		tok = newToken(token.SEMICOLON, l.ch)
-	
+	case '=':
+		if l.peekFurther() == '=' {
+			ch := l.ch
+			l.readChar()
+			tok = token.Token{Type: token.EQUALTO, Litral: string(ch) + string(l.ch)}
+		} else {
+			tok = newToken(token.ASSIGN, l.ch)
+		}
+	case '!':
+		if l.peekFurther() == '=' {
+			ch := l.ch
+			l.readChar()
+			tok = token.Token{Type: token.NOTEUQAL, Litral: string(ch) + string(l.ch)}
+		} else {
+			tok = newToken(token.EXCLAMATION, l.ch)
+		}
 
 	case 0:
 		tok.Litral = ""
@@ -66,7 +80,7 @@ func (l *Lexer) NextToken() token.Token {
 			tok.Litral = l.readIndentifier()
 			tok.Type = token.LookIdentfiers(tok.Litral)
 			return tok
-		}else if isDigit(l.ch){
+		} else if isDigit(l.ch) {
 			tok.Type = token.INT
 			tok.Litral = l.readNumber()
 			return tok
@@ -79,8 +93,7 @@ func (l *Lexer) NextToken() token.Token {
 	return tok
 }
 
-
-func isDigit(ch byte) bool{
+func isDigit(ch byte) bool {
 	return '0' <= ch && ch <= '9'
 }
 
@@ -91,7 +104,6 @@ func (l *Lexer) readNumber() string {
 	}
 	return l.input[position:l.curr]
 }
-
 
 func newToken(tokType token.TokenType, ch byte) token.Token {
 
@@ -118,9 +130,17 @@ func (l *Lexer) readIndentifier() string {
 
 }
 
-func (l *Lexer) skipWhitespace(){
-	for l.ch == ' ' || l.ch == '\t' || l.ch == '\r' || l.ch == '\n'{
+func (l *Lexer) skipWhitespace() {
+	for l.ch == ' ' || l.ch == '\t' || l.ch == '\r' || l.ch == '\n' {
 		l.readChar()
 	}
 }
 
+func (l *Lexer) peekFurther() byte {
+	//check if program is complete-> lol i would have never though abt this endcase
+	if l.readPos >= len(l.input) {
+		return 0
+	} else {
+		return l.input[l.readPos] //next character peek
+	}
+}

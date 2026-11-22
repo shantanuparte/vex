@@ -18,10 +18,17 @@ const (
 	INT        = "INT"
 
 	//operators
-	ASSIGN = "="
-	PLUS   = "+"
-	MINUS  = "-"
-	
+	ASSIGN      = "="
+	PLUS        = "+"
+	MINUS       = "-"
+	ASTRICK     = "*"
+	SLASH       = "/"
+	EXCLAMATION = "!"
+
+	LF       = "<"
+	GT       = ">"
+	EQUALTO  = "=="
+	NOTEUQAL = "!="
 
 	//signs
 	COMMA     = ","
@@ -34,12 +41,22 @@ const (
 
 	FUNCTION = "FUNCTION"
 	VAL      = "VAL"
+	TRUE     = "TRUE"
+	FALSE    = "FALSE"
+	IF       = "IF"
+	ELSE     = "ELSE"
+	RETURN   = "RETURN"
 )
 
 // keywords to check toekn type in NextToekn
 var keyword = map[string]TokenType{
-	"fn":  FUNCTION,
-	"val": VAL,
+	"fn":     FUNCTION,
+	"val":    VAL,
+	"true":   TRUE,
+	"false":  FALSE,
+	"if":     IF,
+	"else":   ELSE,
+	"return": RETURN,
 }
 
 func LookIdentfiers(s string) TokenType {

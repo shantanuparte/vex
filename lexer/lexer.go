@@ -35,9 +35,23 @@ func (l *Lexer) readChar() {
 
 }
 
+func (l *Lexer) skipComments() {
+	if l.ch != '\n' && l.ch != 0 {
+		l.readChar()
+	}
+}
+
 func (l *Lexer) NextToken() token.Token {
 	var tok token.Token
-	l.skipWhitespace()
+	for {
+		l.skipWhitespace()
+		if l.ch == '/' && l.peekFurther() == '/' {
+			l.skipComments()
+		} else {
+			break
+		}
+	}
+
 	switch l.ch {
 	case '+':
 		tok = newToken(token.PLUS, l.ch)
